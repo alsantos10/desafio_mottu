@@ -1,0 +1,154 @@
+
+.spa-background {
+    background: #1e1a1d;
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+  }
+
+
+  .flex-container {
+    display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    height: 100vh;
+    background-color: brown;
+    
+    // align-items: stretch;
+    align-items: baseline; // flex-start;
+
+    flex-wrap: wrap;
+    align-content: stretch; // flex-start; // stretch;// space-around;
+
+    div {
+        width: 200px;
+        padding: 10px 0;
+        background-color: aquamarine;
+    }
+  }
+
+.app-navbar {
+    // display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    // background-color: yellow !important;
+    // margin-bottom: 16px;
+    // flex-wrap: wrap;
+    // align-content: stretch; // flex-start; // stretch;// space-around;
+
+    div {
+        // background-color: blue;
+    }
+}
+
+.spa-logo {
+    max-width: 9.2rem;
+    // background-color: red;
+    // width: 9em;
+
+    img {
+        // width:  114px;
+        height:  64px;
+    }
+  }
+
+
+  .box-btns {
+      font-size: 80%;
+      display: flex;
+      align-content: center;
+    border-radius: 10px;
+    // padding: 0 10px;
+    background-color: blueviolet;
+    
+    align-content: space-between;
+
+    
+    flex-flow: row wrap;
+    align-content: space-between;
+    
+    // display: flex;
+    // height: 200px;
+    
+    .box-items {
+        width: 150px;
+        padding: 0 10px;
+        justify-content: center;
+        // align-items: center;
+        
+        &:first-child {
+            background-color: white;
+            border-radius: 10px 0 0 10px;
+            
+        }
+    }
+  }
+
+  .favorite-icon-number {
+    position: relative;
+    border-radius: 50%;
+    padding: 2px 15px;
+    margin: 0;
+    background-color: white;
+    color: black;
+    // display: flex;
+    justify-content: start;
+    
+    .icon-number {
+        position: absolute;
+        font-size: 14px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          display: flex;
+        }
+}
+
+
+.icon-favorite-box {
+    // position: relative;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(0, 255, 128);
+    
+    .icon-favorite {
+        // position: absolute;
+        width: 30px;
+        height: 30px;
+
+    }
+}
+
+
+
+
+
+
+
+.section-button {
+    display: table;
+  }
+.example-button-row {
+    display: table-cell;
+    max-width: 600px;
+  }
+  
+  .example-button-row .mat-mdc-button-base {
+    margin: 8px 8px 8px 0;
+  }
+  
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+  
