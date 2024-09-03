@@ -1,14 +1,16 @@
 import { RickAndMortyComponent } from "./rick-and-morty.component";
 
 export interface RickAndMortyCharacterResponse {
-    info: {
-        count: number;
-        next: string;
-        pages: number;
-        prev: string;
-    },
+    info: RickAndMortyPaginator;
     results: Array<RickAndMortyCharacter>;    
 }
+
+export interface RickAndMortyPaginator {
+    count: number;
+    next: string;
+    pages: number;
+    prev: string;
+};
 
 export interface RickAndMortyCharacter {
     created: string;

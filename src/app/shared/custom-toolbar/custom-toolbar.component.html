@@ -5,23 +5,9 @@
         </div>
 
 
-        <section class="section-button">
-            <div class="example-button-row">
-                <div class="example-flex-container">
-                    <div class="example-button-container">
-                        <button mat-fab extended>
-                            <mat-icon>favorite</mat-icon>
-                            Disabled
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
         <div class="box-btns">
             <span class="box-items">
-                <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                <button mat-icon-button>
                     <mat-icon>home</mat-icon>
                 </button>
                 <span>Início</span>
@@ -33,25 +19,11 @@
                     <mat-icon>favorite</mat-icon>
                 </button>
 
-                <!-- <button mat-icon-button class="example-icon favorite-icon">
-                    <mat-icon>circle</mat-icon>
-                </button> -->
-
-                <!-- <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-                    <mat-icon>circle</mat-icon>
-                  </button> -->
-
                 <span>Favoritos</span>
-
-
-                <span class="icon-favorite-box">
-                    <span class="icon-favorite">1</span>
-                </span>
-
 
                 <span class="favorite-icon-number">
                     <span class="icon-number">
-                        <span>1</span>
+                        <span>{{favorites.length}}</span>
                     </span>
                 </span>
             </span>

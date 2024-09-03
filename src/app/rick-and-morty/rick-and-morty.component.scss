@@ -1,0 +1,14 @@
+.flex-container {
+    position: relative;
+}
+.icon-favorite {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 200;
+    cursor: pointer;
+    
+    &.outline {
+        color: white;
+    }
+}

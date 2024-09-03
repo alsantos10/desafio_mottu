@@ -32,30 +32,10 @@ import { distinctUntilChanged } from 'rxjs';
 })
 export class AppComponent implements AfterViewInit {
   title = 'spa_desafio_mottu';
-  formFilter: FormGroup;
-  filter: FormControl | undefined;
   
-  constructor(private fb: FormBuilder) {
-    this.formFilter = this.fb.group({
-      filter: ''
-    });
-
-    this.filter = this.formFilter.get('filter') as FormControl;
-
-    this.filter.valueChanges.pipe(distinctUntilChanged()).subscribe(res => {
-      this.search(res);
-    });
-  }
-
-  search(term: string) {
-
-    console.log(term)
-  }
-
-  
+ 
   ngAfterViewInit(): void {
-    console.log(this.filter)
+    // console.log(this.filter)
   }
-
-  
+ 
 }
