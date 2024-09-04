@@ -1,5 +1,6 @@
 .flex-container {
     position: relative;
+    max-width: calc(100%/4);
 }
 .icon-favorite {
     position: absolute;

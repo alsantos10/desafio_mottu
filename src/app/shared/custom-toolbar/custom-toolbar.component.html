@@ -4,30 +4,29 @@
             <img [src]="logoUrl">
         </div>
 
-
-        <div class="box-btns">
-            <span class="box-items">
+        <section class="box-container">
+            <div class="box-container-item">
                 <button mat-icon-button>
                     <mat-icon>home</mat-icon>
                 </button>
-                <span>Início</span>
-            </span>
-
-            <span class="box-items">
-                <button mat-icon-button class="example-icon favorite-icon"
-                    aria-label="Example icon-button with heart icon">
+                <a routerLink="/characters" routerLinkActive="menu-custom-active" ariaCurrentWhenActive="page">Início</a>
+            </div>
+            
+            <div class="box-container-item">
+                <button mat-icon-button>
                     <mat-icon>favorite</mat-icon>
                 </button>
-
-                <span>Favoritos</span>
-
-                <span class="favorite-icon-number">
+                <a routerLink="/favorites" [routerLinkActive]="'menu-custom-active'" ariaCurrentWhenActive="page">
+              Favoritos
+            </a>
+                <span class="box-favorite-number">
                     <span class="icon-number">
-                        <span>{{favorites.length}}</span>
+                        {{favorites.length}}
                     </span>
+                    <span class="circle-number"></span>
                 </span>
-            </span>
-        </div>
+            </div>
+        </section>
 
     </mat-toolbar>
 

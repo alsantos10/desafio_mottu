@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -9,6 +10,7 @@ import { RickAndMortyService } from './rick-and-morty.service';
 import { RickAndMortyCharacter, RickAndMortyCharacterResponse } from './rick-and-morty.model';
 import { debounce, debounceTime, distinctUntilChanged } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
+import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
 
 @Component({
   selector: 'app-rick-and-morty',
@@ -20,8 +22,11 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule,
+    PageNotFoundComponent
   ],
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './rick-and-morty.component.html',
   styleUrl: './rick-and-morty.component.scss'
 })
@@ -46,15 +51,13 @@ export class RickAndMortyComponent implements OnInit {
       this.search(res);
     });
   }
+  
+    ngOnInit(): void {
+      this.getList();
+    }
 
   search(term: string) {
     this.getList(term);
-
-    console.log(term)
-  }
-
-  ngOnInit(): void {
-    this.getList();
   }
 
   toogleFavorite(element: RickAndMortyCharacter) {
@@ -71,9 +74,23 @@ export class RickAndMortyComponent implements OnInit {
     return this.favorites.includes(favoriteId);
   }
 
+  
+  openSnackBar(message: string) {
+    this.service.logError(message)
+}
+
   private getList(name?: string) {
+    this.list = undefined;
     this.service.getList(name).subscribe(res => {
-      this.list = res;
+      try {
+        this.list = res;
+      } catch (error) {
+        mtest(error);
+      }
     });
   }
+}
+
+function mtest(error: any) {
+  console.log('add method', error)
 }

@@ -28,6 +28,8 @@ $spa_desafio_mottu-theme: mat.define-theme((
   @include mat.all-component-themes($spa_desafio_mottu-theme);
 }
 
+$colorRick: #00B5CC;
+
 // Comment out the line below if you want to use the pre-defined typography utility classes.
 // For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
 // @include mat.typography-hierarchy($spa_desafio_mottu-theme);
@@ -42,7 +44,6 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background: #1F1F1F;
 }
-
 
 p {
   margin: 0;
@@ -62,18 +63,6 @@ p {
   }
 }
 
-
-// .content {
-//   display: flex;
-//   justify-content: space-around;
-//   width: 100%;
-//   max-width: 700px;
-//   margin-bottom: 3rem;
-
- 
-// }
-
-
 .wrap {
   display: flex;
   justify-content: center;
@@ -86,52 +75,23 @@ flex-direction: column;
 align-items: center;
 padding: 0px;
 gap: 24px;
-// background-color: #B2DF28;
-
-
-// width: 100%;
 flex-flow: row wrap;
-justify-content: space-between;
+justify-content: flex-start;
 
    &.container-title {
     align-items: start center;
-    // margin: 30px 0 10px;
-
+    justify-content: space-between;
    }
-
-    h1 {
-
-    }
 
   }
 }
 
-//   .content {
-//     width: 720px;
-// max-width: 720px;
-// display: flex;
-// flex-direction: column;
-// align-items: center;
-// padding: 0px;
-// gap: 48px;
-// // height: 608px;
-// }
-
-
-
 .flex-container {
   display: flex;
-  // flex: content;
   flex: calc(100%/4);
-  // flex-direction: row;
-  // flex-wrap: wrap;
   flex-flow: row wrap;
   justify-content: space-between;
-  // height: 100vh;
-  
-  // align-items: stretch;
   align-items: baseline; // flex-start;
-
   flex-wrap: wrap;
   align-content: stretch; // flex-start; // stretch;// space-around;
 
@@ -141,11 +101,9 @@ justify-content: space-between;
 
   mat-card-content {
     color: white;
-    // width: calc(100%/3);
-        
+
     p {
       width: 190px;
-      
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;   
@@ -153,7 +111,6 @@ justify-content: space-between;
   }
 
   div {
-      // width: 200px;
       flex: 100%;
       padding: 10px 0;
       background-color: aquamarine;
@@ -161,7 +118,10 @@ justify-content: space-between;
   }
 }
 
-
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
 
 
 .title {
@@ -176,7 +136,7 @@ font-size: 48px;
 line-height: 100%;
 /* identical to box height, or 48px */
 letter-spacing: -0.02em;
-color: #00B5CC;
+color: $colorRick;
 // border: 2px solid #B2DF28;
 /* elevation/m */
 text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08), 0px 3px 6px rgba(0, 0, 0, 0.12);
@@ -200,28 +160,13 @@ margin: 16px 0 8px;
 .subsubtitle {
   font-family: 'Poppins';
   font-style: normal;
-  // font-weight: 100;
-  // font-size: 24px;
   line-height: 100%;
-  /* identical to box height, or 24px */
-  // text-align: center;
   letter-spacing: -0.02em;
-  
   height: 24px;
   color: #FAFAFA;  
 }
 
-// .flex-container p {
-//   white-space: nowrap;
-//   // width: 100%;
-//   overflow: hidden; /* "overflow" value must be different from "visible" */
-//   text-overflow: ellipsis;
-// }
 
-// .container-title {
-//   display: flex;
-//   flex-grow: row wrap;
-//   align-content: stretch;
-//   justify-content: space-between;
-//   background-color: cyan;
-// }
+.menu-custom-active {
+  color: $colorRick !important;
+}

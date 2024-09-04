@@ -1,6 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, tap, throwError } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { RickAndMortyCharacterResponse } from './rick-and-morty.model';
 
@@ -11,7 +12,7 @@ const URL_API = 'https://rickandmortyapi.com/api';
 })
 export class RickAndMortyService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
   private favoriteSubject = new BehaviorSubject<Array<number>>([]);
   favorites$ = this.favoriteSubject.asObservable();
@@ -25,8 +26,21 @@ export class RickAndMortyService {
     if (name) {
       param = param.set('name', name);
     }
-    return this.http.get<RickAndMortyCharacterResponse>(`${URL_API}/character`,{params: param}).pipe(tap(res => console.log(res)));
+    return this.http.get<RickAndMortyCharacterResponse>(`${URL_API}/character`,{params: param})
+    // .pipe(tap(res => console.log(res)));
+    .pipe(
+      catchError(err => {
+        handleError(err);
+        this.logError(err);
+      return of(err);
+    }),);
+    
   }
+
+  logError(message:string){
+    this._snackBar.open(message,'Dismiss')
+ }
+
 
   // query() {
   //   characters(page: 2, filter: { name: "rick" }) {
@@ -44,4 +58,16 @@ export class RickAndMortyService {
   //     id
   //   }
   // }
+}
+
+
+function handleError(error: HttpErrorResponse) {
+  if (error.error instanceof ErrorEvent) {
+    console.error('An error occurred:', error.error.message);
+  } else {
+    console.error(
+      `Backend returned code ${error.status}, ` +
+      `body was: ${error.error}`);
+  }
+  return new Error('Something bad happened; please try again later.');
 }
