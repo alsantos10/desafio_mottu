@@ -1,6 +1,6 @@
 # Desafio FrontEnd Mottu
 
-Desenvolvimento do aplicação FrontEnd proposto pela MOTTUS para avaliação de conhecimento e habilidades em processo seletivo.
+Desenvolvimento do aplicação FrontEnd proposto pela MOTTU para avaliação de conhecimento e habilidades em processo seletivo.
 
 ## Descrição
 
