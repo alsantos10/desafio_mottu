@@ -11,11 +11,12 @@
 <ng-container *ngIf="list && list.results; else notFoundItems">
     <section class="wrap">
         <section class="container">
-            @for (item of list?.results; track $index) {
+            @for (item of list.results; track $index) {
             <mat-card class="flex-container" appearance="outlined">
-                <mat-icon (click)="toogleFavorite(item)" class="icon-favorite"
-                    [ngClass]="{'outline': !isFavorite(item.id)}" aria-hidden="false" aria-label="Favorito">favorite{{
-                    !isFavorite(item.id) ? '_outline' : ''}}</mat-icon>
+                <mat-icon (click)="toogleFavorite(item)"
+                    [ngClass]="{'icon-favorite': true, 'outline': !isFavorite(item.id)}">
+                    favorite{{ !isFavorite(item.id) ? '_outline' : '' }}
+                </mat-icon>
                 <img mat-card-image [src]="item.image" [alt]="item.name">
                 <mat-card-content>
                     <p class="subtitle">{{item.name}}</p>
@@ -27,7 +28,7 @@
     </section>
 
     <section class="wrap">
-        <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[20]" (page)="getPage($event)">
         </mat-paginator>
     </section>
 </ng-container>

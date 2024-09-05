@@ -1,1 +1,26 @@
-<p>rick-and-morty-favorites works!</p>
+<section class="wrap">
+    <div class="container container-title">
+        <h1 class="title">Favoritos</h1>
+    </div>
+</section>
+
+<ng-container *ngIf="list && list.length > 0; else notFoundItems">
+    <section class="wrap">
+        <section class="container">
+            @for (item of list; track $index) {
+            <mat-card class="flex-container" appearance="outlined">
+                <mat-icon class="icon-favorite">favorite</mat-icon>
+                <img mat-card-image [src]="item.image" [alt]="item.name">
+                <mat-card-content>
+                    <p class="subtitle">{{item.name}}</p>
+                    <p class="subsubtitle">{{item.species}}</p>
+                </mat-card-content>
+            </mat-card>
+            }
+        </section>
+    </section>
+</ng-container>
+
+<ng-template #notFoundItems>
+    <app-page-not-found></app-page-not-found>
+</ng-template>

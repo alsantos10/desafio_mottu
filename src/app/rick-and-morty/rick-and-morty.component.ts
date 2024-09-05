@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { RickAndMortyService } from './rick-and-morty.service';
-import { RickAndMortyCharacter, RickAndMortyCharacterResponse } from './rick-and-morty.model';
-import { debounce, debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
+
+import { RickAndMortyCharacter, RickAndMortyCharacterResponse } from './rick-and-morty.model';
+import { RickAndMortyService } from './rick-and-morty.service';
 import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
 
 @Component({
@@ -26,16 +26,18 @@ import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.c
     MatPaginatorModule,
     PageNotFoundComponent
   ],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './rick-and-morty.component.html',
   styleUrl: './rick-and-morty.component.scss'
 })
-export class RickAndMortyComponent implements OnInit {
+export class RickAndMortyComponent implements OnInit, AfterContentInit {
 
   list: RickAndMortyCharacterResponse | undefined;
   favorites: Array<number> = [];
   formFilter: FormGroup;
   filter: FormControl | undefined;
+
+  length: number | undefined;
+  pageSize: number | undefined = 20;
 
   constructor(
     private service: RickAndMortyService,
@@ -49,6 +51,12 @@ export class RickAndMortyComponent implements OnInit {
 
     this.filter.valueChanges.pipe(distinctUntilChanged(), debounceTime(1000)).subscribe(res => {
       this.search(res);
+    });
+  }
+
+  ngAfterContentInit(): void {
+    this.service.favorites$.subscribe(item => {
+      this.favorites = item;
     });
   }
   
@@ -74,23 +82,20 @@ export class RickAndMortyComponent implements OnInit {
     return this.favorites.includes(favoriteId);
   }
 
-  
   openSnackBar(message: string) {
     this.service.logError(message)
 }
 
-  private getList(name?: string) {
-    this.list = undefined;
-    this.service.getList(name).subscribe(res => {
-      try {
-        this.list = res;
-      } catch (error) {
-        mtest(error);
-      }
-    });
-  }
+// {length: 826pageIndex: 1pageSize: 20previousPageIndex: 0}
+getPage(page: {length: number; pageIndex: number; pageSize: number; previousPageIndex?: number}) {
+  console.log(page);
+  this.getList(undefined, page.pageIndex + 1);
 }
 
-function mtest(error: any) {
-  console.log('add method', error)
+  private getList(name?: string, page?: number) {
+    this.service.getList(name, page).subscribe(res => {
+        this.list = res;
+        this.length = this.list?.info.count;
+    });
+  }
 }

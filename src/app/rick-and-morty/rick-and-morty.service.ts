@@ -21,10 +21,13 @@ export class RickAndMortyService {
     this.favoriteSubject.next(favorites);
   }
 
-  getList(name?: string) {
+  getList(name?: string, page?: number) {
     let param = new HttpParams();
     if (name) {
       param = param.set('name', name);
+    }
+    if (page) {
+      param = param.set('page', page);
     }
     return this.http.get<RickAndMortyCharacterResponse>(`${URL_API}/character`,{params: param})
     // .pipe(tap(res => console.log(res)));
@@ -33,8 +36,19 @@ export class RickAndMortyService {
         handleError(err);
         this.logError(err);
       return of(err);
-    }),);
-    
+    }));    
+  }
+
+  getFavorites(favoritesId: Array<number>) {
+    let param = new HttpParams();
+    return this.http.get<RickAndMortyCharacterResponse>(`${URL_API}/character/${favoritesId}`,{params: param})
+    // .pipe(tap(res => console.log(res)));
+    .pipe(
+      catchError(err => {
+        handleError(err);
+        this.logError(err);
+      return of(err);
+    }));    
   }
 
   logError(message:string){
