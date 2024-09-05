@@ -79,7 +79,6 @@ flex-flow: row wrap;
 justify-content: flex-start;
 
    &.container-title {
-    align-items: start center;
     justify-content: space-between;
    }
 
@@ -179,4 +178,42 @@ margin: 16px 0 8px;
 
 .menu-custom-active {
   color: $colorRick !important;
+}
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 800px) {
+  .wrap {
+
+    .container {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 15px;
+
+      &.container-title {
+        justify-content: space-around;
+       }
+    }
+  }
+  .flex-container {
+    flex-direction: column;
+    max-width: inherit;
+    flex: calc(100%/4);
+  }
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+ 
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  
+  
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+ 
+  
 }
