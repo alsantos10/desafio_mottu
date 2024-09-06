@@ -1,8 +1,11 @@
 <section class="wrap">
     <div class="container">
         <section>
-            <h3>Nada foi encontrado</h3>
-            <p>Tente realizar uma nova busca.</p>
+            <h3>{{title}}</h3>
+            <p>{{subTitle}}</p>
+            @if (isFavorite) {
+                <button routerLink="/characters" mat-flat-button>Voltar ao início</button>
+            }
         </section>
     </div>
 </section>

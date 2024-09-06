@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 import { PageNotFoundComponent } from '../../shared/page-not-found/page-not-found.component';
-import { RickAndMortyCharacter, RickAndMortyCharacterResponse } from '../rick-and-morty.model';
+import { RickAndMortyCharacter } from '../rick-and-morty.model';
 import { RickAndMortyService } from '../rick-and-morty.service';
 
 @Component({
@@ -26,18 +26,22 @@ export class RickAndMortyFavoritesComponent implements OnInit {
   constructor(private service: RickAndMortyService) {}
 
   list: Array<RickAndMortyCharacter> | undefined;
-
+  viewItems = false;
+  
   ngOnInit(): void {
     this.service.favorites$.subscribe(values => {
       this.getFavorites(values);
-    })
-  }
-
-  private getFavorites(favoritesId: Array<number>) {
-    // this.list = undefined;
-    this.service.getFavorites(favoritesId).subscribe(res => {
-      this.list = res;
     });
   }
 
+  private getFavorites(favoritesId: Array<number>) {
+    this.viewItems = false;
+    this.list = undefined;
+    if (favoritesId && favoritesId.length > 0) {
+      this.service.getFavorites(favoritesId).subscribe(res => {
+        this.viewItems = true;
+        this.list = res;
+      });
+    }
+  }
 }

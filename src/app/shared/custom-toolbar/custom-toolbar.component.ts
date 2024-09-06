@@ -36,7 +36,6 @@ export class CustomToolbarComponent implements OnChanges {
     private sanitizer: DomSanitizer,
     private service: RickAndMortyService
   ) {
-    // favorites$
     this.service.favorites$.subscribe(res => this.favorites = res);
   }
 

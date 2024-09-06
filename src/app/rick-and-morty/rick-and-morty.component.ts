@@ -38,6 +38,7 @@ export class RickAndMortyComponent implements OnInit, AfterContentInit {
 
   length: number | undefined;
   pageSize: number | undefined = 20;
+  name: string | undefined = undefined;
 
   constructor(
     private service: RickAndMortyService,
@@ -59,10 +60,10 @@ export class RickAndMortyComponent implements OnInit, AfterContentInit {
       this.favorites = item;
     });
   }
-  
-    ngOnInit(): void {
-      this.getList();
-    }
+
+  ngOnInit(): void {
+    this.getList();
+  }
 
   search(term: string) {
     this.getList(term);
@@ -82,20 +83,15 @@ export class RickAndMortyComponent implements OnInit, AfterContentInit {
     return this.favorites.includes(favoriteId);
   }
 
-  openSnackBar(message: string) {
-    this.service.logError(message)
-}
-
-// {length: 826pageIndex: 1pageSize: 20previousPageIndex: 0}
-getPage(page: {length: number; pageIndex: number; pageSize: number; previousPageIndex?: number}) {
-  console.log(page);
-  this.getList(undefined, page.pageIndex + 1);
-}
+  getPage(page: { length: number; pageIndex: number; pageSize: number; previousPageIndex?: number }) {
+    this.getList(this.name, page.pageIndex + 1);
+  }
 
   private getList(name?: string, page?: number) {
+    this.name = name;
     this.service.getList(name, page).subscribe(res => {
-        this.list = res;
-        this.length = this.list?.info.count;
+      this.list = res;
+      this.length = this.list?.info.count;
     });
   }
 }

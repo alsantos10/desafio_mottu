@@ -1,9 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { RickAndMortyCharacterResponse } from './rick-and-morty.model';
+import { RickAndMortyCharacter, RickAndMortyCharacterResponse } from './rick-and-morty.model';
 
 const URL_API = 'https://rickandmortyapi.com/api';
 
@@ -29,49 +29,23 @@ export class RickAndMortyService {
     if (page) {
       param = param.set('page', page);
     }
-    return this.http.get<RickAndMortyCharacterResponse>(`${URL_API}/character`,{params: param})
-    // .pipe(tap(res => console.log(res)));
-    .pipe(
-      catchError(err => {
-        handleError(err);
-        this.logError(err);
-      return of(err);
-    }));    
+    return this.http.get<RickAndMortyCharacterResponse>(`${URL_API}/character`, { params: param })
+      .pipe(
+        catchError(err => {
+          handleError(err);
+          return of(err);
+        }));
   }
 
   getFavorites(favoritesId: Array<number>) {
-    let param = new HttpParams();
-    return this.http.get<RickAndMortyCharacterResponse>(`${URL_API}/character/${favoritesId}`,{params: param})
-    // .pipe(tap(res => console.log(res)));
-    .pipe(
-      catchError(err => {
-        handleError(err);
-        this.logError(err);
-      return of(err);
-    }));    
+    return this.http.get<Array<RickAndMortyCharacter>|RickAndMortyCharacter>(`${URL_API}/character/${favoritesId}`)
+      .pipe(
+        map(res => (favoritesId.length === 1) ? [res] : res),
+        catchError(err => {
+          handleError(err);
+          return of(err);
+        }));
   }
-
-  logError(message:string){
-    this._snackBar.open(message,'Dismiss')
- }
-
-
-  // query() {
-  //   characters(page: 2, filter: { name: "rick" }) {
-  //     info {
-  //       count
-  //     }
-  //     results {
-  //       name
-  //     }
-  //   }
-  //   location(id: 1) {
-  //     id
-  //   }
-  //   episodesByIds(ids: [1, 2]) {
-  //     id
-  //   }
-  // }
 }
 
 
