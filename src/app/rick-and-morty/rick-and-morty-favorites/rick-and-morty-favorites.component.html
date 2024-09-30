@@ -9,7 +9,7 @@
         <section class="container">
             @for (item of list; track $index) {
             <mat-card class="flex-container" appearance="outlined">
-                <mat-icon class="icon-favorite">favorite</mat-icon>
+                <mat-icon class="icon-favorite" (click)="removeFavorite(item)">favorite</mat-icon>
                 <img mat-card-image [src]="item.image" [alt]="item.name">
                 <mat-card-content>
                     <p class="subtitle">{{item.name}}</p>

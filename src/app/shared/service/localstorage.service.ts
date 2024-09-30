@@ -5,22 +5,33 @@ import { Injectable } from '@angular/core';
 })
 export class LocalStorageService {
 
-  constructor() { }
+  private storage: Storage | undefined;
 
-  setItem(key: string, data: any): void {
+  constructor() { 
+    this.storage = window.localStorage;
+  }
+
+  setItem(key: string, data: Array<number>): boolean {
     try {
-      const serializedData = JSON.stringify(data);
-      localStorage.setItem(key, serializedData);
+      if (this.storage) {
+        this.storage.setItem(key, JSON.stringify(data));
+        return true;
+      }
+      return false;
     } catch (error) {
       console.error(`Error storing data for key ${key}: ${error}`);
+      return false;
     }
   }
 
-  getItem(key: string): any | null {
-    const serializedData = localStorage.getItem(key);
+  getItem(key: string): Array<string> | null {
+    const serializedData = this.storage?.getItem(key);
     if (serializedData) {
       try {
-        return JSON.parse(serializedData);
+        if(this.storage) {
+          return JSON.parse(serializedData);
+        }
+        return null;
       } catch (error) {
         console.error(`Error retrieving data for key ${key}: ${error}`);
       }
@@ -28,7 +39,19 @@ export class LocalStorageService {
     return null;
   }
 
-  removeItem(key: string): void {
-    localStorage.removeItem(key);
+  removeItem(key: string): boolean {
+    if (this.storage) {
+      this.storage.removeItem(key);
+      return true;
+    }
+    return false;
+  }
+
+  clearItem() {
+    if (this.storage) {
+      this.storage.clear();
+      return true;
+    }
+    return false;
   }
 }

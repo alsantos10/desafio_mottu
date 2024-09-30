@@ -23,15 +23,22 @@ import { RickAndMortyService } from '../rick-and-morty.service';
 })
 export class RickAndMortyFavoritesComponent implements OnInit {
 
-  constructor(private service: RickAndMortyService) {}
-
   list: Array<RickAndMortyCharacter> | undefined;
   viewItems = false;
-  
+
+  constructor(private service: RickAndMortyService) { }
+
   ngOnInit(): void {
     this.service.favorites$.subscribe(values => {
       this.getFavorites(values);
     });
+  }
+
+  removeFavorite(element: RickAndMortyCharacter) {
+    if (this.list && this.list.filter((item) => item.id === element.id)) {
+      this.list.splice(this.list.findIndex(item => item.id === element.id), 1);
+      this.service.updateFavorites(this.list.map(item => item.id));
+    }
   }
 
   private getFavorites(favoritesId: Array<number>) {
