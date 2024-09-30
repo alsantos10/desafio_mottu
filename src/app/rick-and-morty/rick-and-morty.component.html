@@ -28,7 +28,12 @@
     </section>
 
     <section class="wrap">
-        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[20]" (page)="getPage($event)">
+        <mat-paginator 
+            [length]="length" 
+            [pageSize]="pageSize" 
+            [pageSizeOptions]="[20]"
+            [showFirstLastButtons]="true" 
+            (page)="getPage($event)">
         </mat-paginator>
     </section>
 </ng-container>
