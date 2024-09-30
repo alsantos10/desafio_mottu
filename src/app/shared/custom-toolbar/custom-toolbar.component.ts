@@ -24,27 +24,13 @@ import { RickAndMortyService } from '../../rick-and-morty/rick-and-morty.service
   templateUrl: './custom-toolbar.component.html',
   styleUrl: './custom-toolbar.component.scss'
 })
-export class CustomToolbarComponent implements OnChanges {
+export class CustomToolbarComponent {
   logoUrl = 'logo.svg';
   public name?: string = 'logo';
-  public svgIcon: any;
 
-  favorites: any;
+  favorites: Array<number> | undefined;
 
-  constructor(
-    private httpClient: HttpClient,
-    private sanitizer: DomSanitizer,
-    private service: RickAndMortyService
-  ) {
+  constructor(private service: RickAndMortyService) {
     this.service.favorites$.subscribe(res => this.favorites = res);
   }
-
-  public ngOnChanges(): void {
-    this.httpClient
-      .get(`public/${this.name}.svg`, { responseType: 'text' })
-      .subscribe(value => {
-        this.svgIcon = this.sanitizer.bypassSecurityTrustHtml(value);
-      });
-  }
-
 }
